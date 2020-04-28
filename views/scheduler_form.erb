@@ -5,23 +5,65 @@
 <title>フォームの作成</title>
 </head>
 <body>
-    <form action="form.php" method="POST">
-        <p>名前：<input type="text" name="name"></p>
-        <p>メッセージ：</p>
-        <textarea name="message" rows="5" cols="40"></textarea>
-        <p>性別：
-        男性<input type="radio" name="gender" value="man">
-        女性<input type="radio" name="gender" value="woman">
+
+<% 
+=begin
+%>
+
+  <% if @contact.errors.present? %>
+  エラーがあります。
+  <ul>
+    <% @contact.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+<% 
+=end
+%>
+        
+        <form action="scheduler_form" method="post">
+            <div>
+                <label for ="schedule_date">日付</label>
+                <input type="date" name="schedule_date" id ="schedule_date" value="<%=@schedule_date%>">
+            </div>
+            <div>
+                <label for ="schedule_from">From</label>
+                <input type="time" name="schedule_from" id ="schedule_from" value="<%=@schedule_from%>">
+            </div>
+            <div>
+                <label for ="schedule_until">Until</label>
+                <input type="time" name="schedule_until" id ="schedule_until" value="<%=@schedule_until%>">
+            </div>
+            <div>
+                <label for ="schedule_todo">スケジュール</label>
+                <input type="string" name="schedule_todo" id ="schedule_todo" value="<%=@schedule_todo%>">
+            </div>
+            <div>
+                <select name="schedule_category" id ="schedule_category">カテゴリ
+                    <option value="sleep">睡眠</option>
+                    <option value="prgramming">プログラミング</option>
+                    <option value="mealrest">食事・休憩</option>
+                    <option value="private">プライベート</option>
+                    <option value="muscletrain">筋トレ・運動</option>
+                </select>
+            </div>
+            <div>
+                <label for ="schedule_memo">メモ欄</label>
+                <textarea type="text" name="schedule_memo" id ="schedule_memo" value="<%=@schedule_memo%>" rows="5" cols="40"></textarea>
+            </div>
+        <input type="submit">
+        <div>
+            <a href="/">戻る</a>
+        </div>
+
+        <p>
+          <strong>Note:</strong> type="time" is not supported in Safari or Internet Explorer 12 and earlier versions.
         </p>
-        <p>今日の晩御飯：
-        <select name="dinner">
-            <option value="riceball">おにぎり</option>
-            <option value="udon">うどん</option>
-            <option value="ramen">ラーメン</option>
-            <option value="soba">そば</option>
-        </select>
-        </p>
-        <input type="submit" value="送信">
-    </form>
+
+    </body>
+
+
 </body>
 </html>
