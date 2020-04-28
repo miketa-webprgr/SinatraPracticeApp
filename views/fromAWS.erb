@@ -1,0 +1,35 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>連絡帳</title>
+    </head>
+    
+    <body>
+        <h1>TOPページ</h1>
+        <% if @message %>
+            <div class ="message"><%= @message %></div>
+        <% end %>
+        
+        <table border =1 >
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名前</th>
+                    <th>E-mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @contacts.each do |contact| %>
+                    <tr>
+                        <td><%= contact.id %></td>
+                        <td><%= contact.name %></td>
+                        <td><%= contact.email %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+    </body>
+    
+    <footer>
+        <a href="/contact_new">新規連絡先の作成</a>
+    </footer>
+</html>
