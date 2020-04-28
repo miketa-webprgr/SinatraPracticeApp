@@ -1,0 +1,32 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>contact-form</title>
+    </head>
+    <body>
+        <h1>連絡帳</h1>
+        
+        <% if @contact.errors.present? %>
+        エラーがあります。
+            <ul>
+                <% @contact.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        <% end %>
+        
+        <form action="contacts" method="post">
+            <div>
+                <label for ="contact_name">名前</label>
+                <input type="text" name="name" id ="contact_name" value="<%=@contact.name%>">
+            </div>
+            <div>
+                <label for ="contact_email">E-mail</label>
+                <input type="string" name="email" id ="contact_email" value="<%=@contact.emailcd%>">
+            </div>
+        <input type="submit">
+        <div>
+            <a href="/">戻る</a>
+        </div>
+    </body>
+</html>

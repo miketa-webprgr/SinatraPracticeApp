@@ -13,6 +13,12 @@ get '/scheduler_form' do
     erb :scheduler_form
 end
 
+post '/scheduler_form' do
+    puts '### 送信されたデータ ###'
+    puts params
+    redirect '/'
+end
+
 # require 'rubygems'
 # require 'bundler'
 

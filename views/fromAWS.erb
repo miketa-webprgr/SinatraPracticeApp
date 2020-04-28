@@ -10,23 +10,29 @@
             <div class ="message"><%= @message %></div>
         <% end %>
         
-        <table border =1 >
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>名前</th>
-                    <th>E-mail</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @contacts.each do |contact| %>
-                    <tr>
-                        <td><%= contact.id %></td>
-                        <td><%= contact.name %></td>
-                        <td><%= contact.email %></td>
-                    </tr>
-                <% end %>
-            </tbody>
+  <table border =1 >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>〜時から</th>
+        <th>〜時まで</th>
+        <th>スケジュール</th>
+        <th>カテゴリ</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.id %></td>
+        <td><%= schedule.from %></td>
+        <td><%= schedule.to %></td>
+        <td><%= schedule.todo %></td>
+        <td><%= schedule.category %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
     </body>
     
     <footer>
