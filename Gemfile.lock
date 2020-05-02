@@ -53,6 +53,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   rake
   sinatra
   sinatra-activerecord

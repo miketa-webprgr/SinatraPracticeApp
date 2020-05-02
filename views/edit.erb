@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>フォームの作成</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+
+
+<% if @contact.errors.present? %>
+エラーがあります。
+<ul>
+<% @contact.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+<% end %>
+</ul>
+<% end %>
+
+
+<form action="/editing" method="post">
+
+    <p>
+        <h2> --- 修正画面 --- </h2>
+    </p>
+
+    <p>
+        <label for ="date">日付</label>
+        <input type="date" name="date" id ="date" value="<%= @edit.date %>">
+    </p>
+
+    <table border=1>
+        <tr>
+            <th>From</th>
+            <th>Until</th>
+            <th>スケジュール</th>
+            <th>カテゴリ</th>
+            <th>メモ欄</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="time" name="from" id ="from" value="<%= @edit.from.strftime("%H:%M") %>">
+            </td>
+            <td>
+                <input type="time" name="until" id ="until" value="<%= @edit.until.strftime("%H:%M") %>">
+            </td>
+            <td>
+                <input type="string" name="todo" id ="todo" value="<%= @edit.todo %>">
+            </td>
+            <td>
+                <select name="category" id ="category">カテゴリ
+                    <option value="睡眠" 
+                        <% if @edit.category == "睡眠" %>
+                        <%= "selected" %>
+                        <% end %> 
+                    >睡眠</option>
+                    <option value="プログラミング"
+                        <% if @edit.category == "プログラミング" %>
+                        <%= "selected" %>
+                        <% end %>      
+                    >プログラミング</option>
+                    <option value="食事・休憩"
+                        <% if @edit.category == "食事・休憩" %>
+                        <%= "selected" %>
+                        <% end %> 
+                    >食事・休憩</option>
+                    <option value="プライベート"
+                        <% if @edit.category == "プライベート" %>
+                        <%= "selected" %>
+                        <% end %>                     
+                    >プライベート</option>
+                    <option value="筋トレ・運動"
+                        <% if @edit.category == "筋トレ・運動" %>
+                        <%= "selected" %>
+                        <% end %>     
+                    >筋トレ・運動</option>
+                </select>
+            </td>
+            <td>
+                <textarea type="text" name="memo" id ="memo" rows="1" cols="40"><%= @edit.memo %></textarea>
+            </td>            
+        </tr>
+    </table>
+<input type="hidden" name="editing_id"" id="editing_id" value="<%= @edit.id %>">
+<input type="submit" value="修正">
+</form>
+<br><br>
+
+<table border=1>
+    <thead></thead>
+    <tbody>
+        <tr>
+            <th>色</th>
+            <th>日付</th>
+            <th>From</th>
+            <th>Until</th>
+            <th>スケジュール</th>
+            <th>カテゴリ</th>
+            <th>メモ欄</th>
+            <th>作業時間</th>
+        </tr>
+        <%
+            @schedules.each do |sc| 
+                index = sc.date.strftime("%u").to_i
+                @s1 = sc.date.strftime("%-m月%-d日(#{@weeks[index - 1]})")
+                @s2 = sc.from.try(:strftime,"%H:%M")
+                @s3 = sc.until.try(:strftime,"%H:%M")
+                @s4 = sc.todo
+                @s5 = sc.category
+                @s6 = sc.memo
+                if sc.from.blank? || sc.until.blank?
+                    @s7 = ""
+                else
+                    time_diff_hours = (sc.until - sc.from)/3600
+                    time_diff_minutes = (sc.until - sc.from)%60/60
+                    @s7 = "#{time_diff_hours.try(:floor)}時間#{time_diff_minutes.try(:floor)}分"
+                end
+        %>
+        <tr class="schedule_hover">
+            <td class="category_color"></td>
+            <td><%= @s1 %></td>
+            <td><%= @s2 %></td>
+            <td><%= @s3 %></td>
+            <td><%= @s4 %></td>
+            <td><%= @s5 %></td>
+            <td><%= @s6 %></td>
+            <td><%= @s7 %></td>          
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+
+<div>
+    <a href="/">戻る</a>
+</div>
+
+<p>
+    <strong>Note:</strong> type="time" is not supported in Safari or Internet Explorer 12 and earlier versions.
+</p>
+
+</body>
+</html>

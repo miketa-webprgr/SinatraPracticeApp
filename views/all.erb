@@ -28,7 +28,7 @@
 
     <p>
         <label for ="date">日付</label>
-        <input type="date" name="date" id ="date" value="<%= @specific_day %>">
+        <input type="date" name="date" id ="date" value="<%= Date.current %>">
     </p>
 
     <table border=1>
@@ -63,13 +63,12 @@
             </td>            
         </tr>
     </table>
+    
 <input type="submit">
-</form>
 <br><br><br>
 
-<p>
-    プログラミングの合計： <%= @schedules_sum %> 時間
-</p>
+
+
 
 <table border=1>
     <thead></thead>
@@ -86,18 +85,22 @@
             <th>編集</th>
             <th>削除</th>
         </tr>
-        <%# コメントアウト　%>
-        <% @schedules.each do |sc| 
-            index = sc.date.strftime("%u").to_i
-            @s1 = sc.date.strftime("%-m月%-d日(#{@weeks[index - 1]})")
-            @s2 = sc.from.strftime("%H:%M")
-            @s3 = sc.until.strftime("%H:%M")
-            @s4 = sc.todo
-            @s5 = sc.category
-            @s6 = sc.memo
-            time_diff_hours = (sc.until - sc.from)/3600
-            time_diff_minutes = (sc.until - sc.from)%3600/60
-            @s7 = "#{time_diff_hours.floor}時間#{time_diff_minutes.floor}分"
+        <%
+            @schedules.each do |sc| 
+                index = sc.date.strftime("%u").to_i
+                @s1 = sc.date.strftime("%-m月%-d日(#{@weeks[index - 1]})")
+                @s2 = sc.from.try(:strftime,"%H:%M")
+                @s3 = sc.until.try(:strftime,"%H:%M")
+                @s4 = sc.todo
+                @s5 = sc.category
+                @s6 = sc.memo
+                if sc.from.blank? || sc.until.blank?
+                    @s7 = ""
+                else
+                    time_diff_hours = (sc.until - sc.from)/3600
+                    time_diff_minutes = (sc.until - sc.from)%60/60
+                    @s7 = "#{time_diff_hours.try(:floor)}時間#{time_diff_minutes.try(:floor)}分"
+                end
         %>
         <tr class="schedule_hover">
             <td class="category_color"></td>
@@ -109,7 +112,9 @@
             <td><%= @s6 %></td>
             <td><%= @s7 %></td>
             <td>
-                <form action="/edit/<%= sc.date %>/<%= sc.id %>" method="get">
+                <form action="/scheduler_edit/<%= sc.date %>/<%= sc.id %>" method="post">
+                    <input type="hidden" name="hidden_id"" id="hidden_id" value="<%= sc.id %>">
+                    <input type="hidden" name="hidden_date"" id="hidden_date" value="<%= sc.date %>">
                     <input type="submit" value="✔︎">
                 </form>
             </td> 
@@ -119,15 +124,17 @@
                 </form>
             </td>             
         </tr>
-        <%# コメントアウト　%>
         <% end %>
     </tbody>
 </table>
 
-
 <div>
     <a href="/">戻る</a>
 </div>
+
+<p>
+    <strong>Note:</strong> type="time" is not supported in Safari or Internet Explorer 12 and earlier versions.
+</p>
 
 </body>
 </html>

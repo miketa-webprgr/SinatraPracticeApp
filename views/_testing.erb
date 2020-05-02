@@ -1,0 +1,17 @@
+        <%
+            @schedules.each do |sc| 
+                index = sc.date.strftime("%u").to_i
+                @s1 = sc.date.strftime("%-m月%-d日(#{@weeks[index - 1]})")
+                @s2 = sc.from.try(:strftime,"%H:%M")
+                @s3 = sc.until.try(:strftime,"%H:%M")
+                @s4 = sc.todo
+                @s5 = sc.category
+                @s6 = sc.memo
+                if sc.from.blank? || sc.until.blank?
+                    @s7 = ""
+                else
+                    time_diff_hours = (sc.until - sc.from)/3600
+                    time_diff_minutes = (sc.until - sc.from)%60/60
+                    @s7 = "#{time_diff_hours.try(:floor)}時間#{time_diff_minutes.try(:floor)}分"
+                end
+        %>

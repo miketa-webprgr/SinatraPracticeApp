@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_133028) do
+ActiveRecord::Schema.define(version: 2020_04_29_051241) do
 
   create_table "schedules", force: :cascade do |t|
-    t.string "name"
+    t.date "date"
+    t.time "from"
+    t.time "until"
+    t.string "todo"
+    t.string "category"
+    t.text "memo"
   end
 
 end

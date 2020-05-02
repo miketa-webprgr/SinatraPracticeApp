@@ -9,7 +9,7 @@
   <meta name="description" content="Sinatraを使って時間割スケジューラーを作ってみた">
   <meta name="keywords" content="時間割,スケジューラー,時間管理,日程作成">
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/style.css">
 
 </head>
 
@@ -17,50 +17,53 @@
 
   <h2>時間割スケジューラー</h2>
 
-    <table>
+    <table class = "index">
         <tr>
-            <td>月曜日</td>
-            <td>Title1</td>
-            <td>編集</td>
-            <td>削除</td>
+            <td>【月】</td>
+            <td><%= @monday.strftime(" %-m月%-d日 ") %></td>
+            <td><a href="/scheduler_form/<%= @monday %>">編集</a></td>
+            
         </tr>
         <tr>
-            <td>火曜日</td>
-            <td>Title2</td>
-            <td>編集</td>
-            <td>削除</td>            
+            <td>【火】</td>
+            <td><%= @tuesday.strftime(" %-m月%-d日 ") %></td>
+            <td><a href="/scheduler_form/<%= @tuesday %>">編集</a></td>
+                        
         </tr>
         <tr>
-            <td>水曜日</td>
-            <td>Title3</td>
-            <td>編集</td>
-            <td>削除</td>            
+            <td>【水】</td>
+            <td><%= @wednesday.strftime(" %-m月%-d日 ") %></td>
+            <td><a href="/scheduler_form/<%= @wednesday %>">編集</a></td>
+                            
         </tr>
         <tr>
-            <td>木曜日</td>
-            <td>Title4</td>
-            <td>編集</td>
-            <td>削除</td>            
+            <td>【木】</td>
+            <td><%= @thursday.strftime(" %-m月%-d日 ") %></td>
+            <td><a href="/scheduler_form/<%= @thursday %>">編集</a></td>
+                          
         </tr>
         <tr>
-            <td>金曜日</td>
-            <td>Title5</td>
-            <td>編集</td>
-            <td>削除</td>            
+            <td>【金】</td>
+            <td><%= @friday.strftime(" %-m月%-d日 ") %></td>
+            <td><a href="/scheduler_form/<%= @friday %>">編集</a></td>
+                         
         </tr>
         <tr>
-            <td>土曜日</td>
-            <td>Title6</td>
-            <td>編集</td>
-            <td>削除</td>            
+            <td>【土】</td>
+            <td><%= @saturday.strftime(" %-m月%-d日 ") %></td>
+            <td><a href="/scheduler_form/<%= @saturday %>">編集</a></td>
+                        
         </tr>
         <tr>
-            <td>日曜日</td>
-            <td>Title7</td>
-            <td>編集</td>
-            <td>削除</td>
+            <td>【日】</td>
+            <td><%= @sunday.strftime(" %-m月%-d日 ") %></td>
+            <td><a href="/scheduler_form/<%= @sunday %>">編集</a></td>
+              
         </tr>
     </table>
+
+
+<br>
 
 </body>
 
@@ -71,7 +74,11 @@
     <a href="#">翌週</a>>
   </div>
   <br>
-  <a href="/scheduler_form">時間割を作成する</a>
+  <a href="/list_all">全てのスケジュールを確認する</a>
+
+  <p>
+    <strong>Note:</strong> type="time" is not supported in Safari or Internet Explorer 12 and earlier versions.
+    </p>
 
 </footer>
 

@@ -1,0 +1,33 @@
+h2 {
+  width: 60%;
+  padding: 12px;
+}
+
+table {
+  border: 5px;
+  border-collapse: collapse;
+  width: 80%;
+  max-width: 1200px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+tr.schedule_hover:hover {background-color: #d9d9ff;}
+
+table.index{
+  max-width: 400px;
+}
+
+table.index th {
+  padding-right: 80px;
+
+}
+
+
+
+
+
