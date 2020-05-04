@@ -70,6 +70,7 @@ end
 post '/scheduler_form' do
     schedule = Schedule.new({date: params[:date], from: params[:from], until: params[:until], todo: params[:todo], category: params[:category], memo: params[:memo]})
     schedule.save
+    redirect "/scheduler_form/#{params[:date]}"
 end
 
 
